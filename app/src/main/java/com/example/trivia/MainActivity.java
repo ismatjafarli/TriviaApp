@@ -17,6 +17,7 @@ import com.example.trivia.data.AnswerListAsyncResponse;
 import com.example.trivia.data.Repository;
 import com.example.trivia.databinding.ActivityMainBinding;
 import com.example.trivia.model.Question;
+import com.google.android.material.snackbar.Snackbar;
 
 import org.json.JSONArray;
 
@@ -33,25 +34,44 @@ public class MainActivity extends AppCompatActivity {
         setContentView(R.layout.activity_main);
         binding = DataBindingUtil.setContentView(this, R.layout.activity_main);
 
-        questions = new Repository().getQuestions(questionArrayList ->
-                {
-         }
-        );
-        binding.questionIndexText.setText("Question: " + String.valueOf(currentQuestionNumber)+"/"+String.valueOf(questions.size()));
+        questions = new Repository().getQuestions(questionArrayList -> {
+            binding.questionTextView.setText(questions.get(currentQuestionNumber).getQuestion());
+                    updateCounter();
+                });
 
         binding.nextButton.setOnClickListener(v -> {
             nextQuestion();
             currentQuestionNumber = (currentQuestionNumber + 1) % questions.size();
-            binding.questionIndexText.setText("Question: " +
-                    String.valueOf(currentQuestionNumber)+"/"+String.valueOf(questions.size()));
-
+            updateCounter();
         });
 
+        binding.trueButton.setOnClickListener(v -> {
+            checkAnswer(true);
+        });
 
+        binding.falseButton.setOnClickListener(v -> {
+            checkAnswer(false);
+        });
+    }
+
+    private void updateCounter() {
+        binding.questionIndexText.setText("Question: " + String.valueOf(currentQuestionNumber) + "/" + String.valueOf(questions.size()));
+    }
+
+    private void checkAnswer(boolean answerTrue) {
+        int snackBarId = 0;
+        if(answerTrue == questions.get(currentQuestionNumber).isTrueAnswer()) {
+            snackBarId = R.string.correct_answer;
+        } else {
+            snackBarId = R.string.wrong_answer;
+        }
+        Snackbar.make(binding.cardView, snackBarId, Snackbar.LENGTH_SHORT)
+                .show();
     }
 
     private void nextQuestion() {
         String question = questions.get(currentQuestionNumber).getQuestion();
         binding.questionTextView.setText(question);
- }
+    }
+
 }
