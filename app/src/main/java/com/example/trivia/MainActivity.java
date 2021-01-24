@@ -3,6 +3,7 @@ package com.example.trivia;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.databinding.DataBindingUtil;
 
+import android.content.SharedPreferences;
 import android.graphics.Color;
 import android.os.Bundle;
 import android.util.Log;
@@ -28,9 +29,11 @@ import org.json.JSONArray;
 import java.util.List;
 
 public class MainActivity extends AppCompatActivity {
+    private static final String MESSAGE_ID = "user_point";
     List<Question> questions;
     private ActivityMainBinding binding;
-    private  int currentQuestionNumber = 0;
+    private int currentQuestionNumber = 0;
+    private int userPoint;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -47,6 +50,8 @@ public class MainActivity extends AppCompatActivity {
             nextQuestion();
             currentQuestionNumber = (currentQuestionNumber + 1) % questions.size();
             updateCounter();
+            //binding.userPointText.setText("Your point: " + String.valueOf(userPoint));
+            pointOfUser();
         });
 
         binding.trueButton.setOnClickListener(v -> {
@@ -66,9 +71,14 @@ public class MainActivity extends AppCompatActivity {
         if(answerTrue == questions.get(currentQuestionNumber).isTrueAnswer()) {
             snackBarId = R.string.correct_answer;
             fadeAnimation();
+            userPoint += 10;
         } else {
             snackBarId = R.string.wrong_answer;
             shakeAnimation();
+            userPoint -= 10;
+            if(userPoint < 0) {
+                userPoint = 0;
+            }
         }
         Snackbar.make(binding.cardView, snackBarId, Snackbar.LENGTH_SHORT)
                 .show();
@@ -106,7 +116,7 @@ public class MainActivity extends AppCompatActivity {
         });
         }
 
-    private void fadeAnimation(){
+    private void fadeAnimation() {
         AlphaAnimation alphaAnimation = new AlphaAnimation(1.0f, 0.0f);
         alphaAnimation.setDuration(300);
         alphaAnimation.setRepeatCount(1);
@@ -130,5 +140,24 @@ public class MainActivity extends AppCompatActivity {
 
             }
         });
+    }
+
+
+
+    private void pointOfUser() {
+        String message = String.valueOf(userPoint);
+
+        SharedPreferences sharedPreferences = getSharedPreferences(MESSAGE_ID, MODE_PRIVATE);
+        SharedPreferences.Editor editor = sharedPreferences.edit();
+        editor.putString("message", "Your point: " + message);
+
+        editor.apply();
+
+
+    SharedPreferences getSharedData = getSharedPreferences(MESSAGE_ID, MODE_PRIVATE);
+    String value = getSharedData.getString("message", "Nothing yet");
+
+        binding.userPointText.setText(value);
+
     }
 }

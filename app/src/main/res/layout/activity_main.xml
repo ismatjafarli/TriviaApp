@@ -22,7 +22,7 @@
             android:textColor="@color/light_gray"
             android:textSize="24sp"
             app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintHorizontal_bias="0.187"
+            app:layout_constraintHorizontal_bias="0.062"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent" />
 
@@ -31,28 +31,28 @@
             style="@style/MainTextStyle"
             android:layout_width="252dp"
             android:layout_height="55dp"
-            android:layout_marginTop="28dp"
+            android:layout_marginTop="68dp"
             android:text="@string/question_text"
             android:textColor="@color/white"
             android:textSize="24sp"
             app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintHorizontal_bias="0.496"
+            app:layout_constraintHorizontal_bias="0.188"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@+id/title_text" />
 
         <androidx.cardview.widget.CardView
             android:id="@+id/card_view"
-            android:layout_width="match_parent"
+            android:layout_width="378dp"
             android:layout_height="155dp"
             android:layout_marginStart="16dp"
-            android:layout_marginTop="16dp"
+            android:layout_marginTop="12dp"
             android:layout_marginEnd="16dp"
             app:cardBackgroundColor="@color/card_view_color"
-            app:cardCornerRadius="10dp"
+            app:cardCornerRadius="5dp"
             app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintHorizontal_bias="0.0"
+            app:layout_constraintHorizontal_bias="0.583"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/question_index_text" >
+            app:layout_constraintTop_toBottomOf="@+id/question_index_text">
 
             <TextView
                 android:id="@+id/question_text_view"
@@ -71,11 +71,12 @@
             style="@style/ButtonStyle"
             android:layout_width="378dp"
             android:layout_height="55dp"
+            android:layout_marginTop="72dp"
             android:text="@string/true_button"
             app:backgroundTint="@color/button_back_ground_color"
-            app:cornerRadius="10dp"
+            app:cornerRadius="5dp"
             app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintHorizontal_bias="0.515"
+            app:layout_constraintHorizontal_bias="0.939"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@+id/card_view" />
 
@@ -84,11 +85,12 @@
             style="@style/ButtonStyle"
             android:layout_width="378dp"
             android:layout_height="55dp"
-            android:layout_marginTop="20dp"
+            android:layout_marginTop="36dp"
             android:text="@string/false_button"
             app:backgroundTint="@color/button_back_ground_color"
-            app:cornerRadius="10dp"
+            app:cornerRadius="5dp"
             app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintHorizontal_bias="0.696"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@+id/true_button" />
 
@@ -96,13 +98,28 @@
             android:id="@+id/next_button"
             android:layout_width="wrap_content"
             android:layout_height="55dp"
-            android:layout_marginTop="16dp"
+            android:layout_marginTop="36dp"
             android:text="@string/next_button"
             app:backgroundTint="@color/next_button_color"
-            app:cornerRadius="10dp"
+            app:cornerRadius="5dp"
             app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintHorizontal_bias="0.792"
+            app:layout_constraintHorizontal_bias="0.801"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@+id/false_button" />
+
+        <TextView
+            android:id="@+id/user_point_text"
+            style="@style/MainTextStyle"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="@string/your_points"
+            android:textColor="@color/white"
+            android:textSize="24sp"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintHorizontal_bias="0.095"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent"
+            app:layout_constraintVertical_bias="0.1" />
     </androidx.constraintlayout.widget.ConstraintLayout>
 </layout>

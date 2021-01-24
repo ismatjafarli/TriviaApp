@@ -8,4 +8,5 @@
     <string name="correct_answer">It is correct!</string>
     <string name="wrong_answer">It is incorrect!</string>
     <string name="question_text_view">Please, click the next button to see the first question!</string>
+    <string name="your_points">Your point: 0</string>
 </resources>
