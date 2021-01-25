@@ -21,6 +21,7 @@ import com.example.trivia.data.AnswerListAsyncResponse;
 import com.example.trivia.data.Repository;
 import com.example.trivia.databinding.ActivityMainBinding;
 import com.example.trivia.model.Question;
+import com.example.trivia.model.Score;
 import com.google.android.material.snackbar.Snackbar;
 
 import org.json.JSONArray;
@@ -30,13 +31,17 @@ import java.util.List;
 public class MainActivity extends AppCompatActivity {
     List<Question> questions;
     private ActivityMainBinding binding;
-    private  int currentQuestionNumber = 0;
+    private int currentQuestionNumber = 0;
+    private int scoreCounter;
+    private Score score;
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
         binding = DataBindingUtil.setContentView(this, R.layout.activity_main);
+        score = new Score();
 
         questions = new Repository().getQuestions(questionArrayList -> {
             binding.questionTextView.setText(questions.get(currentQuestionNumber).getQuestion());
@@ -66,9 +71,11 @@ public class MainActivity extends AppCompatActivity {
         if(answerTrue == questions.get(currentQuestionNumber).isTrueAnswer()) {
             snackBarId = R.string.correct_answer;
             fadeAnimation();
+            addScore();
         } else {
             snackBarId = R.string.wrong_answer;
             shakeAnimation();
+            deductScore();
         }
         Snackbar.make(binding.cardView, snackBarId, Snackbar.LENGTH_SHORT)
                 .show();
@@ -106,7 +113,7 @@ public class MainActivity extends AppCompatActivity {
         });
         }
 
-    private void fadeAnimation(){
+    private void fadeAnimation() {
         AlphaAnimation alphaAnimation = new AlphaAnimation(1.0f, 0.0f);
         alphaAnimation.setDuration(300);
         alphaAnimation.setRepeatCount(1);
@@ -131,4 +138,20 @@ public class MainActivity extends AppCompatActivity {
             }
         });
     }
+
+    private void deductScore(){
+        if(scoreCounter > 0) {
+            scoreCounter -= 100;
+            score.setScore(scoreCounter);
+        } else {
+            scoreCounter = 0;
+            score.setScore(scoreCounter);
+        }
+    }
+
+    private void addScore() {
+     scoreCounter += 100;
+     score.setScore(scoreCounter);
+    }
+
 }
