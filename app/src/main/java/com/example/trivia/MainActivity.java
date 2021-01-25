@@ -26,6 +26,7 @@ import com.google.android.material.snackbar.Snackbar;
 
 import org.json.JSONArray;
 
+import java.text.MessageFormat;
 import java.util.List;
 
 public class MainActivity extends AppCompatActivity {
@@ -49,8 +50,8 @@ public class MainActivity extends AppCompatActivity {
         });
 
         binding.nextButton.setOnClickListener(v -> {
-            nextQuestion();
             currentQuestionNumber = (currentQuestionNumber + 1) % questions.size();
+            nextQuestion();
             updateCounter();
         });
 
@@ -108,7 +109,6 @@ public class MainActivity extends AppCompatActivity {
 
             @Override
             public void onAnimationRepeat(Animation animation) {
-
             }
         });
         }
@@ -143,15 +143,18 @@ public class MainActivity extends AppCompatActivity {
         if(scoreCounter > 0) {
             scoreCounter -= 100;
             score.setScore(scoreCounter);
+            binding.userPointText.setText(MessageFormat.format("Your current score: {0}", String.valueOf(score.getScore())));
         } else {
             scoreCounter = 0;
             score.setScore(scoreCounter);
+            binding.userPointText.setText(MessageFormat.format("Your current score: {0}", String.valueOf(score.getScore())));
         }
     }
 
     private void addScore() {
      scoreCounter += 100;
      score.setScore(scoreCounter);
+        binding.userPointText.setText(MessageFormat.format("Your current score: {0}", String.valueOf(score.getScore())));
     }
 
 }
