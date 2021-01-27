@@ -22,6 +22,7 @@ import com.example.trivia.data.Repository;
 import com.example.trivia.databinding.ActivityMainBinding;
 import com.example.trivia.model.Question;
 import com.example.trivia.model.Score;
+import com.example.trivia.util.Prefs;
 import com.google.android.material.snackbar.Snackbar;
 
 import org.json.JSONArray;
@@ -35,6 +36,7 @@ public class MainActivity extends AppCompatActivity {
     private int currentQuestionNumber = 0;
     private int scoreCounter;
     private Score score;
+    private Prefs prefs;
 
 
     @Override
@@ -42,17 +44,20 @@ public class MainActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
         binding = DataBindingUtil.setContentView(this, R.layout.activity_main);
+
         score = new Score();
+        prefs = new Prefs(MainActivity.this);
+
+        currentQuestionNumber = prefs.getState();
+        binding.highestScoreText.setText(String.valueOf("Your highest score: " + prefs.getHighestScore()));
 
         questions = new Repository().getQuestions(questionArrayList -> {
             binding.questionTextView.setText(questions.get(currentQuestionNumber).getQuestion());
-            updateCounter();
+            binding.questionIndexText.setText(String.valueOf("Question: " + currentQuestionNumber + "/" + questions.size()));
         });
 
         binding.nextButton.setOnClickListener(v -> {
-            currentQuestionNumber = (currentQuestionNumber + 1) % questions.size();
-            nextQuestion();
-            updateCounter();
+            changeCurrentQuestion();
         });
 
         binding.trueButton.setOnClickListener(v -> {
@@ -65,6 +70,11 @@ public class MainActivity extends AppCompatActivity {
             checkAnswer(false);
             nextQuestion();
         });
+    }
+
+    private void changeCurrentQuestion() {
+        currentQuestionNumber = (currentQuestionNumber + 1) % questions.size();
+        nextQuestion();
     }
 
     private void checkAnswer(boolean answerTrue) {
@@ -85,11 +95,10 @@ public class MainActivity extends AppCompatActivity {
     private void nextQuestion() {
         String question = questions.get(currentQuestionNumber).getQuestion();
         binding.questionTextView.setText(question);
+        binding.questionIndexText.setText(String.valueOf("Question: " + currentQuestionNumber + "/" + questions.size()));
     }
 
-    private void updateCounter() {
-        binding.questionIndexText.setText("Question: " + String.valueOf(currentQuestionNumber) + "/" + String.valueOf(questions.size()));
-    }
+
 
     private void shakeAnimation(){
         Animation shake = AnimationUtils.loadAnimation(MainActivity.this,
@@ -105,6 +114,7 @@ public class MainActivity extends AppCompatActivity {
             @Override
             public void onAnimationEnd(Animation animation) {
                 binding.questionTextView.setTextColor(Color.WHITE);
+                changeCurrentQuestion();
             }
 
             @Override
@@ -130,6 +140,7 @@ public class MainActivity extends AppCompatActivity {
             @Override
             public void onAnimationEnd(Animation animation) {
                 binding.questionTextView.setTextColor(Color.WHITE);
+                changeCurrentQuestion();
             }
 
             @Override
@@ -157,4 +168,10 @@ public class MainActivity extends AppCompatActivity {
         binding.userPointText.setText(MessageFormat.format("Your current score: {0}", String.valueOf(score.getScore())));
     }
 
+    @Override
+    protected void onPause() {
+        prefs.saveHighestScore(score.getScore());
+        prefs.setState(currentQuestionNumber);
+        super.onPause();
+    }
 }
