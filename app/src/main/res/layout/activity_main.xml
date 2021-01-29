@@ -20,9 +20,9 @@
             android:layout_marginTop="16dp"
             android:text="@string/title_text"
             android:textColor="@color/light_gray"
-            android:textSize="24sp"
+            android:textSize="30sp"
             app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintHorizontal_bias="0.187"
+            app:layout_constraintHorizontal_bias="0.1"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent" />
 
@@ -31,37 +31,36 @@
             style="@style/MainTextStyle"
             android:layout_width="252dp"
             android:layout_height="55dp"
-            android:layout_marginTop="28dp"
+            android:layout_marginTop="4dp"
             android:text="@string/question_text"
             android:textColor="@color/white"
             android:textSize="24sp"
             app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintHorizontal_bias="0.496"
+            app:layout_constraintHorizontal_bias="0.138"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/title_text" />
+            app:layout_constraintTop_toBottomOf="@+id/user_point_text" />
 
         <androidx.cardview.widget.CardView
             android:id="@+id/card_view"
             android:layout_width="match_parent"
             android:layout_height="155dp"
             android:layout_marginStart="16dp"
-            android:layout_marginTop="16dp"
+            android:layout_marginTop="12dp"
             android:layout_marginEnd="16dp"
             app:cardBackgroundColor="@color/card_view_color"
             app:cardCornerRadius="10dp"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintHorizontal_bias="0.0"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/question_index_text" >
+            app:layout_constraintTop_toBottomOf="@+id/question_index_text">
 
             <TextView
                 android:id="@+id/question_text_view"
                 style="@style/MainTextStyle"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_gravity="center"
                 android:fontFamily="@font/roboto_medium_italic"
-                android:padding="@dimen/button_padding"
+                android:padding="20dp"
                 android:text="@string/question_text_view"
                 android:textColor="@color/white" />
         </androidx.cardview.widget.CardView>
@@ -96,13 +95,39 @@
             android:id="@+id/next_button"
             android:layout_width="wrap_content"
             android:layout_height="55dp"
-            android:layout_marginTop="16dp"
+            android:layout_marginTop="20dp"
             android:text="@string/next_button"
             app:backgroundTint="@color/next_button_color"
             app:cornerRadius="10dp"
             app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintHorizontal_bias="0.792"
+            app:layout_constraintHorizontal_bias="0.86"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@+id/false_button" />
+
+        <TextView
+            android:id="@+id/user_point_text"
+            style="@style/TextViewStyle"
+            android:layout_width="211dp"
+            android:layout_height="39dp"
+            android:layout_marginTop="64dp"
+            android:text="@string/your_points"
+            android:textSize="18sp"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintHorizontal_bias="1.0"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/title_text" />
+
+        <TextView
+            android:id="@+id/highest_score_text"
+            style="@style/TextViewStyle"
+            android:layout_width="213dp"
+            android:layout_height="34dp"
+            android:layout_marginTop="16dp"
+            android:text="@string/highest_score_text"
+            android:textSize="18sp"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintHorizontal_bias="1.0"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/title_text" />
     </androidx.constraintlayout.widget.ConstraintLayout>
 </layout>
