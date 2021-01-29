@@ -33,4 +33,5 @@ public class Prefs {
     public int getState() {
         return preferences.getInt(LAST_INDEX, 0);
     }
+
 }
